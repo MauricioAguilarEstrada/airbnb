@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/propiedades';
+const API_URL = 'https://reserva-backend-7acc.onrender.com/api/propiedades';
 
 export const getProperties = async () => {
   const response = await fetch(API_URL);
@@ -7,7 +7,7 @@ export const getProperties = async () => {
 };
 
 export const createProperty = async (propertyData) => {
-  const response = await fetch('http://localhost:5000/api/propiedades', {
+  const response = await fetch('${API_URL}/api/propiedades', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(propertyData),
@@ -17,7 +17,7 @@ export const createProperty = async (propertyData) => {
 };
 
 export const updatePropertyRating = async (id, reviewPayload) => {
-  const response = await fetch(`http://localhost:5000/api/propiedades/${id}/calificar`, {
+  const response = await fetch(`${API_URL}/api/propiedades/${id}/calificar`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(reviewPayload), // Mandamos todo el paquete
@@ -35,7 +35,7 @@ export const deleteProperty = async (id) => {
 };
 
 export const loginUser = async (credentials) => {
-  const response = await fetch('http://localhost:5000/api/login', {
+  const response = await fetch('${API_URL}/api/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
@@ -45,14 +45,14 @@ export const loginUser = async (credentials) => {
 };
 
 export const getPropertyById = async (id) => {
-  const response = await fetch(`http://localhost:5000/api/propiedades/${id}`);
+  const response = await fetch(`${API_URL}api/propiedades/${id}`);
   if (!response.ok) throw new Error('Error al cargar la propiedad');
   return await response.json();
 };
 
 // Crear una nueva reserva
 export const createReservation = async (reservationData) => {
-  const response = await fetch('http://localhost:5000/api/reservas', {
+  const response = await fetch('${API_URL}/api/reservas', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(reservationData),
@@ -64,7 +64,7 @@ export const createReservation = async (reservationData) => {
 
 // Obtener el historial de reservas de un usuario
 export const getUserReservations = async (userId) => {
-  const response = await fetch(`http://localhost:5000/api/reservas/usuario/${userId}`);
+  const response = await fetch(`${API_URL}/api/reservas/usuario/${userId}`);
   
   if (!response.ok) throw new Error('Error al obtener el historial');
   return await response.json();
@@ -72,7 +72,7 @@ export const getUserReservations = async (userId) => {
 
 // Cancelar una reserva
 export const cancelReservation = async (reservaId) => {
-  const response = await fetch(`http://localhost:5000/api/reservas/${reservaId}/cancelar`, {
+  const response = await fetch(`${API_URL}/api/reservas/${reservaId}/cancelar`, {
     method: 'PUT',
   });
   
