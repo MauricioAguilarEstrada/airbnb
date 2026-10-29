@@ -1,20 +1,42 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getProperties } from '../services/api';
 
 export default function Home() {
   const [properties, setProperties] = useState([]);
   const [maxPrice, setMaxPrice] = useState(5000);
   const [amenity, setAmenity] = useState('');
+  
+  const [searchParams] = useSearchParams();
+  const query = (searchParams.get('search') || '').toLowerCase();
 
   useEffect(() => {
-    getProperties().then(data => setProperties(data));
+    getProperties()
+      .then(data => {
+        if (Array.isArray(data)) {
+          setProperties(data);
+        } else {
+          console.error("El backend devolvió un error o formato incorrecto:", data);
+        }
+      })
+      .catch(error => {
+        console.error("Error al intentar obtener las propiedades:", error);
+      });
   }, []);
 
   const filteredProperties = properties.filter(p => {
-    const matchPrice = p.price <= maxPrice;
-    const matchAmenity = amenity === '' ? true : p.amenities.includes(amenity);
-    return matchPrice && matchAmenity;
+    const safeTitle = p.title || "";
+    const safeLocation = p.location || "";
+    const safeAmenities = Array.isArray(p.amenities) ? p.amenities : [];
+
+    const matchPrice = (p.price || 0) <= maxPrice;
+    const matchAmenity = amenity === '' ? true : safeAmenities.includes(amenity);
+    
+    const matchQuery = query === '' 
+      ? true 
+      : safeTitle.toLowerCase().includes(query) || safeLocation.toLowerCase().includes(query);
+    
+    return matchPrice && matchAmenity && matchQuery;
   });
 
   return (
@@ -46,22 +68,22 @@ export default function Home() {
               <div className="card-img-wrapper">
                 <img 
                   src={p.photoUrl || "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80"} 
-                  alt={p.title} 
+                  alt={p.title || "Propiedad"} 
                 />
               </div>
               <div className="card-info">
                 <div className="card-header">
-                  <span className="card-location">{p.location}</span>
-                  <span className="card-rating">★ {p.rating}</span>
+                  <span className="card-location">{p.location || "Sin ubicación"}</span>
+                  <span className="card-rating">★ {p.rating || 0}</span>
                 </div>
-                <span className="card-title">{p.title}</span>
-                <span className="card-price"><span>${p.price} MXN</span> noche</span>
+                <span className="card-title">{p.title || "Propiedad"}</span>
+                <span className="card-price"><span>${p.price || 0} MXN</span> noche</span>
               </div>
             </Link>
           ))
         ) : (
           <p style={{ textAlign: 'center', gridColumn: '1 / -1', color: '#717171' }}>
-            No encontramos propiedades con estos filtros.
+            No encontramos propiedades para mostrar.
           </p>
         )}
       </div>
