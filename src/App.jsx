@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import Home from './pages/home';
 import CreateProperty from './pages/CreateProperty';
 import PropertyDetails from './pages/PropertyDetails';
 import Login from './pages/Login'; // <-- 1. Importa el componente
