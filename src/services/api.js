@@ -1,4 +1,4 @@
-const API_URL = 'https://reserva-backend-7acc.onrender.com/api/propiedades';
+const API_URL = 'https://reserva-backend-7acc.onrender.com';
 
 export const getProperties = async () => {
   const response = await fetch(API_URL);
