@@ -22,7 +22,7 @@ export default function Navbar() {
 const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('userId'); 
-    navigate('/login'); 
+    navigate('/home'); 
   };
 
   return (
