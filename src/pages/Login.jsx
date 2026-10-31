@@ -9,12 +9,10 @@ export default function Login() {
 const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Llamada real al backend en Python
       const userData = await loginUser({ nombre, password });
       
-      // Guardamos tanto el nombre como el ID correctamente
       localStorage.setItem('user', userData.nombre);
-      localStorage.setItem('userId', userData.id); // <-- CORRECCIÓN AQUÍ
+      localStorage.setItem('userId', userData.id); 
       
       window.location.href = '/'; 
     } catch (err) {

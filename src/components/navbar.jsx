@@ -19,10 +19,10 @@ export default function Navbar() {
     }
   };
 
-  const handleLogout = () => {
+const handleLogout = () => {
     localStorage.removeItem('user');
-    localStorage.removeItem('userId'); // Importante: limpiar también el ID para seguridad
-    window.location.href = '/login'; // Redirige y limpia el estado visual
+    localStorage.removeItem('userId'); 
+    navigate('/login'); 
   };
 
   return (
@@ -55,7 +55,7 @@ export default function Navbar() {
           </button>
         )}
 
-        {/* Lógica condicional: Solo si 'user' existe mostramos la opción de publicar y el botón de salir */}
+        {}
         {user ? (
           <>
             <Link to="/create">Publicar Propiedad</Link>

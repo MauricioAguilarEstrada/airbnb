@@ -29,7 +29,6 @@ export default function MyTrips() {
     if (window.confirm('¿Estás seguro de que deseas cancelar esta reserva?')) {
       try {
         await cancelReservation(reservaId);
-        // Actualizamos el estado localmente para reflejar el cambio inmediato
         setReservations(prev => prev.map(res => 
           res.id === reservaId ? { ...res, estado: 'cancelada' } : res
         ));

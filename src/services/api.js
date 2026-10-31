@@ -1,11 +1,13 @@
 const API_URL = 'https://reserva-backend-7acc.onrender.com';
 
+//obetener casas
 export const getProperties = async () => {
   const response = await fetch(`${API_URL}/api/propiedades`);
   if (!response.ok) throw new Error('Error al obtener las propiedades');
   return await response.json();
 };
 
+//crear casa
 export const createProperty = async (propertyData) => {
   const response = await fetch(`${API_URL}/api/propiedades`, {
     method: 'POST',
@@ -16,6 +18,7 @@ export const createProperty = async (propertyData) => {
   return await response.json();
 };
 
+//actualizar casa
 export const updatePropertyRating = async (id, reviewPayload) => {
   const response = await fetch(`${API_URL}/api/propiedades/${id}/calificar`, {
     method: 'PUT',
@@ -26,6 +29,7 @@ export const updatePropertyRating = async (id, reviewPayload) => {
   return await response.json();
 };
 
+//eliminar una casa
 export const deleteProperty = async (id) => {
   const response = await fetch(`${API_URL}/api/propiedades/${id}`, {
     method: 'DELETE',
@@ -33,6 +37,7 @@ export const deleteProperty = async (id) => {
   return await response.json();
 };
 
+//Se logue el usuario
 export const loginUser = async (credentials) => {
   const response = await fetch(`${API_URL}/api/login`, {
     method: 'POST',

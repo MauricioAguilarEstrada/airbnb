@@ -65,7 +65,7 @@ export default function PropertyDetails() {
     try {
       await createReservation(reservationData);
       alert(`¡Reserva confirmada con éxito por ${diffDays} noches!\nTotal a pagar: $${precioTotal} MXN`);
-      navigate('/'); // Lo mandamos al inicio tras reservar con éxito
+      navigate('/');
     } catch (error) {
       console.error(error);
       alert("Hubo un error al procesar tu reserva.");
